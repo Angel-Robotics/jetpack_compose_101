@@ -6,6 +6,7 @@ import androidx.ui.core.Modifier
 import androidx.ui.foundation.Text
 import androidx.ui.graphics.Color
 import androidx.ui.layout.Column
+import androidx.ui.layout.fillMaxHeight
 import androidx.ui.layout.height
 import androidx.ui.layout.padding
 import androidx.ui.material.Button
@@ -30,12 +31,18 @@ fun Greeting(name: String) {
 fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
     val counterState = state { 0 }
 
-    Column {
-        for (name in names) {
-            Greeting(name = name)
-            Divider(color = Color.Black)
+    Column(modifier = Modifier.fillMaxHeight().padding(16.dp)) {
+
+        Column(modifier = Modifier.weight(1f)) {
+
+            for (name in names) {
+                Greeting(name = name)
+                Divider(color = Color.Black)
+            }
+            Divider(color = Color.Transparent, modifier = Modifier.height(16.dp))
+
         }
-        Divider(color = Color.Transparent, modifier = Modifier.height(16.dp))
+
         Counter(
                 count = counterState.value,
                 updateCount = { newCount ->
@@ -43,11 +50,12 @@ fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
                 }
         )
     }
+
 }
 
 @Composable
 fun Counter(count: Int, updateCount: (Int) -> Unit) {
-    Button(onClick = { updateCount(count+1) }) {
+    Button(onClick = { updateCount(count + 1) }) {
         Text("I've been clicked $count times")
     }
 }
