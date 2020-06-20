@@ -12,24 +12,24 @@ import androidx.ui.material.Surface
 import androidx.ui.unit.dp
 
 @Composable
-fun MyApp(content: @Composable() () -> Unit){
+fun MyApp(content: @Composable() () -> Unit) {
     MaterialTheme() {
         content()
     }
 }
 
 @Composable
-fun Greeting(name: String){
+fun Greeting(name: String) {
     Text(text = "Hello $name!", modifier = Modifier.padding(24.dp))
 }
 
 @Composable
-fun MyScreenContent(){
-    
-    Column{
-        Greeting(name = "Androdi")
-        Divider(color = Color.Black, thickness = 2.dp)
-        Greeting(name = "Dreamwalker")
+fun MyScreenContent(names:List<String> = listOf("Android", "Dreamwalker")) {
+    Column {
+        for(name in names){
+            Greeting(name = name)
+            Divider(color = Color.Black, thickness = 2.dp)
+        }
     }
-    
 }
+
