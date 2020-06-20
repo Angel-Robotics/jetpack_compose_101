@@ -27,21 +27,27 @@ fun Greeting(name: String) {
 }
 
 @Composable
-fun MyScreenContent(names: List<String> = listOf("Android", "Dreamwalker")) {
+fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
+    val counterState = state { 0 }
+
     Column {
         for (name in names) {
             Greeting(name = name)
-            Divider(color = Color.Black, thickness = 2.dp)
+            Divider(color = Color.Black)
         }
-        Divider(color = Color.Yellow, modifier = Modifier.height(32.dp))
-        Counter()
+        Divider(color = Color.Transparent, modifier = Modifier.height(16.dp))
+        Counter(
+                count = counterState.value,
+                updateCount = { newCount ->
+                    counterState.value = newCount
+                }
+        )
     }
 }
 
 @Composable
-fun Counter() {
-    val count = state { 0 }
-    Button(onClick = { count.value++ }) {
-        Text("I've been clicked ${count.value} times")
+fun Counter(count: Int, updateCount: (Int) -> Unit) {
+    Button(onClick = { updateCount(count+1) }) {
+        Text("I've been clicked $count times")
     }
 }
