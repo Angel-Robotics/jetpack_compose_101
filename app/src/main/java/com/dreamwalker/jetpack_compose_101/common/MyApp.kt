@@ -49,13 +49,23 @@ fun MyScreenContent(names: List<String> = listOf("Android", "there")) {
                     counterState.value = newCount
                 }
         )
+        ResetCounter(resetCount = {counterState.value = 0})
     }
 
 }
 
 @Composable
 fun Counter(count: Int, updateCount: (Int) -> Unit) {
-    Button(onClick = { updateCount(count + 1) }) {
+    Button(onClick = { updateCount(count + 1) },
+            backgroundColor = if (count > 5) Color.Green else Color.White) {
         Text("I've been clicked $count times")
     }
+}
+
+@Composable
+fun ResetCounter(resetCount: ()->Unit){
+    Button(onClick = {resetCount()}) {
+        Text("Reset")
+    }
+
 }
